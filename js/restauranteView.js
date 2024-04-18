@@ -1718,6 +1718,7 @@ class RestaurantView {
       <a id="aCloseSession" href="#">Cerrar sesión</a>
       </div>`
     );
+    alert("Bienvenido " + user.username);
   }
 
   setUserCookie(user) {
