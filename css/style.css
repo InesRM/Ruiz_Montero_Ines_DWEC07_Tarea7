@@ -156,7 +156,7 @@ body {
     transform: scale(1.1);
   }
   .category__photo {
-    border: 1px solid #2f2c2f;
+    /* border: 1px solid #2f2c2f; */
     margin: 20px;
   }
   
