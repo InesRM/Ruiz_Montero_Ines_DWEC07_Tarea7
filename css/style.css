@@ -1,0 +1,265 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Georgia", sans-serif;
+  }
+  a{
+    text-decoration: none;
+  }
+  
+  
+  #inicio{
+    text-decoration: none;
+    font-size: 0.8em;
+    display: flex;
+    background-color: #e8d0bb;
+    padding: 3px;
+    margin:5px;
+    border-radius: 13%;
+    color: #4c344c;
+  
+  }
+  .container {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  #logo {
+    background-color: #c2a4c0;
+    padding: 1em;
+    text-align: center;
+  }
+  /* Menu */
+  
+  .var {
+    background-color: #1c1c1c;
+    width: 100%;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    color: white;
+    text-align: center;
+  }
+  
+  .barra__navegacion {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    place-items: center center;
+    justify-content: center;
+    background-color: #4c344c;
+    color: #e8d0bb;
+    padding: 0.5em;
+    font-size: larger;
+    a:hover{
+      color: rgb(237, 142, 218);
+    
+    }
+  }
+  
+  .dropdown-menu {
+    padding: 1em;
+    background-color: #4c344c;
+  }
+  .dropdown-item {
+    padding: 0.5em;
+    color: #e8d0bb;
+    text-align: left;
+  }
+  
+  h2 {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #cb99c9;
+    text-align: center;
+    margin: 10px;
+  }
+  #enlace {
+  
+    color: #4c344c;
+  }
+  
+  /* Migas de pan */
+  
+  
+  .breadcrumb-item {
+    color: #4c344c;
+    font-weight: bold;
+    font-size: 1em;
+    text-decoration: none;
+  }
+  
+  #breadcrumb{
+    background-color: #e8d0bb;
+    padding: 1em;
+    text-align: center;
+    /* border: solid 3px #2f2c2f; */
+  }
+  
+  /* main */
+  
+  
+  main {
+    background-color: #e4d9d9;
+    padding: 1em;
+  }
+  
+  /* Categorias de platos en el inicio */
+  
+  .category {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1em;
+    padding: 1em;
+  }
+  
+  .dishes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1em;
+    padding: 1em;
+  }
+  
+  #Miscategorias {
+    background-color: #e8d0bb;
+    padding: 1em;
+    text-align: center;
+    border: solid 1px #2f2c2f;
+  }
+  
+  .category__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .category_info {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .category_info h3 {
+    color: #7b095d;
+    font-weight: bold;
+    font-size: 1.8em;
+    text-decoration: none;
+  }
+  
+  .category_info p {
+    text-decoration: none;
+    font-weight: bold;
+    color: #4c344c;
+    font-size: 1em;
+    text-decoration: none;
+  }
+  
+  .category__container:hover {
+    transform: scale(1.1);
+  }
+  .category__photo {
+    border: 1px solid #2f2c2f;
+    margin: 20px;
+  }
+  
+  #cat-photo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Este será el footer */
+  
+  footer {
+    display: flex;
+    background-color: #4c344c;
+    padding: 1em;
+    text-align: center;
+    justify-content: center;
+    color: white;
+  }
+  .rest__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+  }
+  .rest-foto {
+    border: 1px solid #2f2c2f;
+    margin: 20px;
+    /* padding: 20px; */
+  }
+  #res {
+    display: flex;
+    max-width: 100%;
+  }
+
+  #cookies-message {
+    background-color: #4c344c;
+    color: white;
+    text-align: center;
+    padding: 1em;
+    position: fixed;
+    bottom: 0;
+    width: 80%;
+  }
+  #userArea a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #4c344c;
+    color: #e8d0bb;
+    font-size: 20px;
+    padding: 0.4em;
+    border-radius: 10px;
+    margin: 5px;
+  }
+  #userArea a:hover {
+    background-color: #7b095d;
+  }
+  #fLogin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #e8d0bb;
+    padding: 1em;
+    border-radius: 10px;
+    margin: 10px;
+  }
+  /* hacer media queries */
+  
+  @media (max-width: 968px) {
+    .barra__navegacion {
+      font-size: 1em;
+    }
+    .category {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .dishes {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    #enlace {
+      font-size: 1em;
+    }
+  }
+  
+  @media (max-width: 680px) {
+    .barra__navegacion {
+      font-size:0.6em;
+    }
+    .dropdown-item {
+      font-size: 0.8em;
+    }
+    h2{
+      font-size: 0.8em;
+    }
+    .category {
+      grid-template-columns: repeat(1, 1fr);
+    }
+    .dishes {
+      grid-template-columns: repeat(1, 1fr);
+    }
+    #enlace {
+      font-size: 0.5em;
+    }
+  }
+  
