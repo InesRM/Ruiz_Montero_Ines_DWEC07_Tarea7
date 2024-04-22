@@ -12,7 +12,8 @@ const MODEL = Symbol("restaurant");
 const VIEW = Symbol("restaurantView");
 const AUTH = Symbol("AUTH");
 const USER = Symbol("USER");
-const LOAD_RESTAURANT = Symbol("Load Manager Objects");
+const DISHES = Symbol("DISHES");
+const LOAD_RESTAURANT_OBJECTS = Symbol("Load Manager Objects");
 
 class RestaurantController {
   constructor(model, view, auth) {
@@ -20,293 +21,186 @@ class RestaurantController {
     this[VIEW] = view;
     this[AUTH] = auth;
     this[USER] = null;
+    this[DISHES] = [];
     this.onLoad();
 
-    this.onInit();
-    this[VIEW].bindInit(this.handleInit);
+    // this.onInit();
+    // this[VIEW].bindInit(this.handleInit);
   }
 
-  [LOAD_RESTAURANT]() {
-    // Creamos las instancias de las clases que vamos a utilizar y los ejemplos a falta de base de datos
+  [LOAD_RESTAURANT_OBJECTS](data) {
+    const categories = data.categories;
+    const allergens = data.allergens;
+    const menus = data.menus;
+    const restaurants = data.restaurants;
+    const dishes = data.dishes;
 
-    // Creamos los 4 platos de Hamburguesas
-    let pollo = new Dish(
-      "Pollo",
-      "Hamburguesas de pollo",
-      ["Pollo", " Lechuga", " Tomate"],
-      "Imagenes/Pollo.jpg"
-    );
+    for (const category of categories) {
+      const cat = new Category(category.name, category.description);
+      cat.image = category.image;
+      this[MODEL].addCategory(cat);
+      
+    }
+    for (const allergen of allergens) {
+      const al = new Allergen(allergen.name, allergen.description);
+      this[MODEL].addAllergen(al);
+    }
+    for (const menu of menus) {
+      const me = new Menu(menu.name, menu.description);
+      this[MODEL].addMenu(me);
+    }
 
-    let ternera = new Dish(
-      "Ternera",
-      "Hamburguesa de ternera",
-      ["Ternera", " Tomate", " Lechuga"],
-      "Imagenes/Ternera.jpg"
-    );
+    for (const restaurant of restaurants) {
+      const res = new Restaurant(
+        restaurant.name,
+        new Coordinate(
+          restaurant.location.latitude,
+          restaurant.location.longitude
+        ),
+        restaurant.description
+      );
+      this[MODEL].addRestaurant(res);
+    }
 
-    let vegetariana = new Dish(
-      "Vegetariana",
-      "Hamburguesa vegetal",
-      ["Vegetales", " Tomate", " Lechuga"],
-      "Imagenes/Vegetariana.jpg"
-    );
-
-    let barbacoa = new Dish(
-      "Barbacoa",
-      "Hamburguesa barbacoa",
-      ["Salsa Barbacoa ", " Tomate", " Lechuga"],
-      "Imagenes/Barbacoa.jpg"
-    );
-
-    // Creamos los 4 platos de Postres
-    let chocolate = new Dish(
-      "Chocolate",
-      "Tarta de Chocolate",
-      ["Cacao", "Salsa", "Nata", "Galleta"],
-      "Imagenes/Chocolate.jpg"
-    );
-
-    let helado = new Dish(
-      "Helado",
-      "Helados caseros de frutas",
-      ["Helado", "Salsa", "Galleta", "Frutas"],
-      "Imagenes/Helado.jpg"
-    );
-
-    let fruta = new Dish(
-      "Fruta",
-      "Frutas frescas de temporada",
-      ["Arándanos", "Fresas", "Moras"],
-      "Imagenes/Fruta.jpg"
-    );
-
-    let tiramisu = new Dish(
-      "Tiramisu",
-      "Pastel de Tiramisu",
-      ["Tiramisu", "Salsa", "Nata", "Galleta"],
-      "Imagenes/Tiramisu.jpg"
-    );
-
-    // Creamos los 4 platos de ensaladas
-    let cesar = new Dish(
-      "Cesar",
-      "Ensalada cesar",
-      ["Lechuga", "Pollo", "Salsa", "Tomate"],
-      "Imagenes/Cesar.jpg"
-    );
-
-    let pasta = new Dish(
-      "Pasta",
-      "Ensalada de pasta",
-      ["Pasta", "Salsa", "Tomate", "Lechuga"],
-      "Imagenes/Pasta.jpg"
-    );
-
-    let vegetal = new Dish(
-      "Vegana",
-      "Ensalada vegetal",
-      ["Vegetales", "Salsa", "Tomate", "Lechuga"],
-      "Imagenes/Vegana.jpg"
-    );
-
-    let pescado = new Dish(
-      "Pescado",
-      "Ensalada de pescado",
-      ["Pescado de temporada", "Tomate", "Lechuga"],
-      "Imagenes/Pescado.jpg"
-    );
-
-    // Crear un objeto de la clase Category
-    let ensaladas = new Category(
-      "Ensaladas",
-      "Frescas y variadas ensaladas y entrantes"
-    );
-    let hamburguesas = new Category(
-      "Hamburguesas",
-      "Hamburguesas de pollo, ternera y tofu"
-    );
-    let postres = new Category("Postres", "Postres caseros y variados");
-
-    // Crear un objeto de la clase Allergen
-    let gluten = new Allergen("Gluten", "Las hamburguesas contiene gluten");
-    let lactosa = new Allergen("Lactosa", "La salsa contiene leche");
-    let frutosSecos = new Allergen(
-      "Frutos Secos",
-      "La brochetas contiene trazas de frutos secos"
-    );
-    let fructosa = new Allergen(
-      "Fructosa",
-      "La salsa puede contener trazas de fructosa"
-    );
-
-    // Crear un objeto de la clase Menu
-    let menuVegetariano = new Menu(
-      "Menu Vegetariano",
-      "Menu diario del restaurante"
-    );
-    let menuContinental = new Menu(
-      "Menu Continental",
-      "Menu de platos internacionales"
-    );
-    let menuPollo = new Menu("Menu Pollo", "Menu diario del restaurante");
-
-    // Crear un objeto de la clase Coordinate
-    let coord1 = new Coordinate(37.7128, -54.006);
-    let coord2 = new Coordinate(38.7128, -64.006);
-    let coord3 = new Coordinate(39.7128, -84.006);
-
-    // Crear un objeto de la clase Restaurante
-    let cocina1 = new Restaurant(
-      "Central",
-      "Restaurante De Alta Cocina, Especialidad en Pescados",
-      coord1
-    );
-    let cocina2 = new Restaurant(
-      "Bistro",
-      "Restaurante De Cocina Tradicional Española",
-      coord2
-    );
-    let cocina3 = new Restaurant(
-      "Gourmet",
-      "Restaurante De Cocina Internacional",
-      coord3
-    );
-
-    this[MODEL].addRestaurant(cocina1, cocina2, cocina3);
-
-    // Asignamos los platos a las categorías
-    this[MODEL].assignCategoryToDish(
-      hamburguesas,
-      pollo,
-      ternera,
-      vegetariana,
-      barbacoa
-    );
-
-    this[MODEL].assignCategoryToDish(ensaladas, pescado, cesar, vegetal, pasta);
-
-    this[MODEL].assignCategoryToDish(
-      postres,
-      fruta,
-      tiramisu,
-      helado,
-      chocolate
-    );
-
-    //Asignamos los platos a los alergenos
-    this[MODEL].assignAllergenToDish(
-      gluten,
-      pollo,
-      ternera,
-      vegetariana,
-      barbacoa
-    );
-    this[MODEL].assignAllergenToDish(lactosa, chocolate, helado, tiramisu);
-    this[MODEL].assignAllergenToDish(frutosSecos, chocolate, tiramisu);
-    this[MODEL].assignAllergenToDish(fructosa, helado, fruta);
-
-    // Asignamos los platos a los menus
-    this[MODEL].assignMenuToDish(menuVegetariano, vegetariana, vegetal, fruta);
-    this[MODEL].assignMenuToDish(menuPollo, pollo, cesar, chocolate);
-    this[MODEL].assignMenuToDish(menuContinental, barbacoa, pasta, helado);
+    for (const dish of dishes) {
+      const di = new Dish(
+        dish.name,
+        dish.description,
+        dish.ingredients,
+        dish.image
+      );
+      this[MODEL].addDish(di);
+      //allergens
+      const allergens = dish.allergens;
+      for (const allergen of allergens) {
+        const al = this[MODEL].getAllergen(allergen);
+        this[MODEL].assignAllergenToDish(al.allergen, di);
+      }
+      //categories
+      const categories = dish.categories;
+      const dishObject = this[MODEL].getDish(di.name);
+      for (const category of categories) {
+        const cat = this[MODEL].getCategory(category);
+        this[MODEL].assignCategoryToDish(cat.category, dishObject);
+     }
+     //menus
+      const menus = dish.menus;
+      for (const menu of menus) {
+        const me = this[MODEL].getMenu(menu);
+        this[MODEL].assignMenuToDish(me.menu, dishObject);
+      }
+     
+    }
   }
   onLoad = () => {
-    if (getCookie('accetedCookieMessage') !== 'true') {
-      this[VIEW].showCookiesMessage();
-  }
+    fetch("./js/datos.json", {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        this[LOAD_RESTAURANT_OBJECTS](data);
+      })
+      .then(() => {
+        this.onAddCategory();
+        this.onAddAllergens();
+        this.onAddMenus();
+        this.onAddRestaurant();
+        // this[VIEW].showAdminMenu();
+        // this[VIEW].bindAdminMenu(
+        //   this.handleNewCategoryForm,
+        //   this.handleRemoveCategoryForm,
+        //   this.handleNewProductForm,
+        //   this.handleRemoveProductForm,
+        //   this.handleNewRestaurantForm,
+        //   this.handleNewAsMenuForm,
+        //   this.handleNewDeassignMenuForm,
+        //   this.handleModifyCatForm
+        // );
 
-  if (getCookie('activeUser')) {
-  } else {
-      this[VIEW].showIdentificationLink();
-      this[VIEW].bindIdentificationLink(this.handleLoginForm);
-  }
+        if (getCookie("accetedCookieMessage") !== "true") {
+          this[VIEW].showCookiesMessage();
+        }
 
-  const userCookie = getCookie('activeUser');
-  if (userCookie) {
-      const user = this[AUTH].getUser(userCookie);
-      // Asigna el usuario y abre una sesión con ese usuario
-      if (user) {
-          this[USER] = user;
-          this.onOpenSession();
-      }
-  } else {
-      this.onCloseSession();
-  }
+        if (getCookie("activeUser")) {
+        } else {
+          this[VIEW].showIdentificationLink();
+          this[VIEW].bindIdentificationLink(this.handleLoginForm);
+        }
 
-    this[LOAD_RESTAURANT]();
-    this.onAddCategory();
-    this.onAddAllergens();
-    this.onAddMenus();
-    this.onAddRestaurant();
-    // this[VIEW].showAdminMenu();
-    // this[VIEW].bindAdminMenu(
-    //   this.handleNewCategoryForm,
-    //   this.handleRemoveCategoryForm,
-    //   this.handleNewProductForm,
-    //   this.handleRemoveProductForm,
-    //   this.handleNewRestaurantForm,
-    //   this.handleNewAsMenuForm,
-    //   this.handleNewDeassignMenuForm,
-    //   this.handleModifyCatForm
-    // );
-
+        const userCookie = getCookie("activeUser");
+        if (userCookie) {
+          const user = this[AUTH].getUser(userCookie);
+          // Asigna el usuario y abre una sesión con ese usuario
+          if (user) {
+            this[USER] = user;
+            this.onOpenSession();
+          }
+        } else {
+          this.onCloseSession();
+        }
+        this.onInit();
+        this[VIEW].bindInit(this.handleInit);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   onOpenSession() {
     this.onInit();
-    // ShoppingCartApp.onInit();
     this[VIEW].initHistory();
     this[VIEW].showAuthUserProfile(this[USER]);
     this[VIEW].bindCloseSession(this.handleCloseSession);
     this[VIEW].showAdminMenu();
     this[VIEW].bindAdminMenu(
-        this.handleNewCategoryForm,
-        this.handleRemoveCategoryForm,
-        this.handleNewProductForm,
-        this.handleRemoveProductForm,
-        this.handleNewRestaurantForm,
-        this.handleNewAsMenuForm);
-}
-// Manejador para cerrar la sesión
-handleCloseSession = () => {
-  // Realiza determinadas acciones
-  this.onCloseSession();
-  this.onInit();
-  this[VIEW].initHistory();
-};
+      this.handleNewCategoryForm,
+      this.handleRemoveCategoryForm,
+      this.handleNewProductForm,
+      this.handleRemoveProductForm,
+      this.handleNewRestaurantForm,
+      this.handleNewAsMenuForm
+    );
+  }
+  // Manejador para cerrar la sesión
+  handleCloseSession = () => {
+    // Realiza determinadas acciones
+    this.onCloseSession();
+    this.onInit();
+    this[VIEW].initHistory();
+  };
 
-onCloseSession() {
-  // Desasigna el usuario
-  this[USER] = null;
-  // Borra la cookie
-  this[VIEW].deleteUserCookie();
-  this[VIEW].showIdentificationLink();
-  this[VIEW].bindIdentificationLink(this.handleLoginForm);
-  // Borra el menú de administración
-  this[VIEW].removeAdminMenu();
-}
+  onCloseSession() {
+    // Desasigna el usuario
+    this[USER] = null;
+    // Borra la cookie
+    this[VIEW].deleteUserCookie();
+    this[VIEW].showIdentificationLink();
+    this[VIEW].bindIdentificationLink(this.handleLoginForm);
+    // Borra el menú de administración
+    this[VIEW].removeAdminMenu();
+  }
 
-handleLoginForm = () => {
-  this[VIEW].showLogin();
-  this[VIEW].bindLogin(this.handleLogin);
-};
+  handleLoginForm = () => {
+    this[VIEW].showLogin();
+    this[VIEW].bindLogin(this.handleLogin);
+  };
 
-// El argumento remember es para mantener la sesión si el usuario ha clickeado "Recuérdame"
-handleLogin = (username, password, remember) => {
-  // Lo valida, y si es correcto, tendremos un objeto usuario
-  if (this[AUTH].validateUser(username, password)) {
+  // El argumento remember es para mantener la sesión si el usuario ha clickeado "Recuérdame"
+  handleLogin = (username, password, remember) => {
+    // Lo valida, y si es correcto, tendremos un objeto usuario
+    if (this[AUTH].validateUser(username, password)) {
       // Lo guardamos para poder reutilizarlo cuando queramos
       this[USER] = this[AUTH].getUser(username);
       this.onOpenSession();
 
       if (remember) {
-          this[VIEW].setUserCookie(this[USER]);
+        this[VIEW].setUserCookie(this[USER]);
       }
       // SI no existe, mostramos un mensaje de que el usuario es incorrecto
-  } else {
+    } else {
       this[VIEW].showInvalidUserMessage();
-  }
-};
+    }
+  };
 
   onInit = () => {
     this[VIEW].showCategories(this[MODEL].getCategories());
@@ -314,15 +208,6 @@ handleLogin = (username, password, remember) => {
     // Categorias
     this[VIEW].bindDishesCategoryList(this.handleDishesCategoryList);
     this[VIEW].bindDishesCategoryListInMenu(this.handleDishesCategoryList);
-
-    // Alergenos
-    this[VIEW].bindDishesAllergenListInMenu(this.handleDishesAllergenList);
-
-    // Menus
-    this[VIEW].bindDishesMenuListInMenu(this.handleDishesMenuList);
-
-    // Restaurant
-    this[VIEW].bindRestaurantListInMenu(this.handleRestaurantList);
   };
 
   handleInit = () => {
@@ -335,14 +220,20 @@ handleLogin = (username, password, remember) => {
 
   onAddAllergens = () => {
     this[VIEW].showAllergensInMenu(this[MODEL].getAllergens());
+    // Alergenos
+    this[VIEW].bindDishesAllergenListInMenu(this.handleDishesAllergenList);
   };
 
   onAddMenus = () => {
     this[VIEW].showMenusInMenu(this[MODEL].getMenus());
+    // Menus
+    this[VIEW].bindDishesMenuListInMenu(this.handleDishesMenuList);
   };
 
   onAddRestaurant = () => {
     this[VIEW].showRestaurantsInMenu(this[MODEL].getRestaurants());
+    // Restaurant
+    this[VIEW].bindRestaurantListInMenu(this.handleRestaurantList);
   };
 
   handleDishesCategoryList = (title) => {
@@ -387,7 +278,6 @@ handleLogin = (username, password, remember) => {
 
       this[VIEW].showDetailsDishes(dish);
 
-      // this[VIEW].bindShowProductInNewWindow(this.handleShowProductInNewWindow);
     } catch (error) {
       this[VIEW].showDetailsDishes(
         null,

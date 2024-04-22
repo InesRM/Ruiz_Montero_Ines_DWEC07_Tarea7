@@ -18,8 +18,7 @@ class RestaurantView {
     this.platos = document.querySelector(".platos");
     this.categorias = document.querySelector(".categories");
     this.migas = document.querySelector(".breadcrumb");
-    this.productWindow = null;
-    this.openWindowMap = new Map();
+ 
   }
 
   [EXCECUTE_HANDLER](
@@ -223,7 +222,7 @@ class RestaurantView {
     }
   }
 
-  // Este es desplegable de los alergenos
+  // Este es el desplegable de los alergenos
   bindDishesAllergenListInMenu(handler) {
     const navAlls = document.getElementById("navAlls");
     const links = navAlls.nextSibling.querySelectorAll("a");

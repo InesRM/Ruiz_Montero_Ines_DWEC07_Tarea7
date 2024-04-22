@@ -1,0 +1,140 @@
+{
+    "platos": [
+        {
+          "nombre": "Pollo",
+          "descripcion": "Hamburguesas de pollo",
+          "ingredientes": ["Pollo", " Lechuga", " Tomate"],
+          "url_imagen": "Imagenes/Pollo.jpg"
+        },
+        {
+          "nombre":  "Ternera",
+          "descripcion": "Hamburguesa de ternera",
+          "ingredientes": ["Ternera", " Tomate", " Lechuga"],
+          "url_imagen": "Imagenes/Ternera.jpg"
+        },
+        {
+          "nombre": "Vegetariana",
+          "descripcion": "Hamburguesa vegetal",
+          "ingredientes": ["Vegetales", " Tomate", " Lechuga"],
+          "url_imagen":  "Imagenes/Vegetariana.jpg"
+        },
+        {
+          "nombre": "Barbacoa",
+          "descripcion": "Hamburguesa barbacoa",
+          "ingredientes": ["Salsa Barbacoa ", " Tomate", " Lechuga"],
+          "url_imagen": "Imagenes/Barbacoa.jpg"
+        },
+        {
+          "nombre": "Chocolate",
+          "descripcion": "Tarta de Chocolate",
+          "ingredientes": ["Cacao", "Salsa", "Nata", "Galleta"],
+          "url_imagen": "Imagenes/Chocolate.jpg"
+        },
+        {
+          "nombre": "Helado",
+          "descripcion": "Helados caseros de frutas",
+          "ingredientes": ["Helado", "Salsa", "Galleta", "Frutas"],
+          "url_imagen": "Imagenes/Helado.jpg"
+        },
+        {
+          "nombre": "Fruta",
+          "descripcion": "Frutas frescas de temporada",
+          "ingredientes": ["Arándanos", "Fresas", "Moras"],
+          "url_imagen": "Imagenes/Fruta.jpg"
+        },
+        {
+          "nombre": "Tiramisu",
+          "descripcion": "Pastel de Tiramisu",
+          "ingredientes":["Tiramisu", "Salsa", "Nata", "Galleta"],
+          "url_imagen": "Imagenes/Tiramisu.jpg"
+        },
+        {
+          "nombre": "Cesar",
+          "descripcion": "Ensalada cesar",
+          "ingredientes": ["Lechuga", "Pollo", "Salsa", "Tomate"],
+          "url_imagen": "Imagenes/Cesar.jpg"
+        },
+        {
+          "nombre": "Pasta",
+          "descripcion": "Ensalada de pasta",
+          "ingredientes": ["Pasta", "Salsa", "Tomate", "Lechuga"],
+          "url_imagen": "Imagenes/Pasta.jpg"
+        },
+        {
+          "nombre": "Vegana",
+          "descripcion": "Ensalada vegetal",
+          "ingredientes": ["Vegetales", "Salsa", "Tomate", "Lechuga"],
+          "url_imagen": "Imagenes/Vegana.jpg"
+        },
+        {
+          "nombre": "Pescado",
+          "descripcion": "Ensalada de pescado",
+          "ingredientes": ["Pescado de temporada", "Tomate", "Lechuga"],
+          "url_imagen": "Imagenes/Pescado.jpg"
+        }
+      ],
+      "categorias": [
+        {
+          "nombre": "Ensaladas",
+          "descripcion": "Frescas y variadas ensaladas y entrantes"
+        },
+        {
+          "nombre": "Hamburguesas",
+          "descripcion": "Hamburguesas de pollo, ternera y tofu"
+        },
+        {
+          "nombre": "Postres",
+          "descripcion": "HPostres caseros y variados"
+        }
+      ],
+      "alergenos": [
+        {
+          "nombre": "Gluten",
+          "descripcion": "Las hamburguesas contiene gluten"
+        },
+        {
+          "nombre": "Lactosa",
+          "descripcion": "La salsa contiene leche"
+        },
+        {
+          "nombre": "Frutos Secos",
+          "descripcion": "El plato contiene trazas de frutos secos"
+        },
+        {
+          "nombre": "Fructosa",
+          "descripcion": "La salsa puede contener azucares naturales y añadidos"
+        }
+      ],
+      "menus": [
+        {
+          "nombre": "Menu Vegetariano",
+          "descripcion": "Menu diario del restaurante"
+        },
+        {
+          "nombre": "Menu Continental",
+          "descripcion": "Menu de platos internacionales"
+        },
+        {
+          "nombre": "Menu Pollo",
+          "descripcion": "Menu diario especial de pollo"
+        }
+      ],
+      "restaurantes": [
+        {
+          "nombre": "Central",
+          "tipo": "Restaurante De Alta Cocina, Especialidad en Pescados",
+          "coordenadas": { "latitud": 37.7128, "longitud": -54.006 }
+        },
+        {
+          "nombre": "Bistro",
+          "tipo": "Restaurante De Cocina Tradicional Española",
+          "coordenadas": { "latitud": 37.7128, "longitud": -64.006 }
+        },
+        {
+          "nombre": "Gourmet",
+          "tipo": "Restaurante De Cocina Internacional",
+          "coordenadas": { "latitud": 37.7128, "longitud": -84.006}
+        }
+      ]
+    }
+    
