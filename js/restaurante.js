@@ -1188,6 +1188,18 @@ let RestaurantsManager = (function () {
       // Permitir encadenar llamadas
       return this;
     }
+
+    //Método para crear un objeto dish
+    createDish(name, description, ingredients, image) {
+      //buscar si existe el plato con el mismo nombre
+      let dish = this.#dishes.find((d) => d.name === name);
+      //Si existe recuperamos su valor si no se crea uno nuevo
+      if (dish) {
+        return dish;
+      } else {
+      return new Dish(name, description, ingredients, image);
+    }
+    }
   }
 
   function init() {

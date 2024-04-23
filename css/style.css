@@ -41,7 +41,7 @@ body {
   
   .barra__navegacion {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(7, 1fr);
     place-items: center center;
     justify-content: center;
     background-color: #4c344c;
@@ -67,7 +67,7 @@ body {
   h2 {
     font-size: 2.5em;
     font-weight: bold;
-    color: #cb99c9;
+    color: #8a5388;
     text-align: center;
     margin: 10px;
   }
@@ -121,7 +121,7 @@ body {
     background-color: #e8d0bb;
     padding: 1em;
     text-align: center;
-    border: solid 1px #2f2c2f;
+    border: solid 1px #7b095d;
   }
   
   .category__container {
@@ -237,6 +237,37 @@ body {
   #fBackup:hover {
     background-color: #7b095d;
   }
+  #favDish{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #4c344c;
+    padding: 1em;
+    border-radius: 10px;
+    margin: 15px;
+    font-size: 1.5em;
+    color:#e8d0bb;
+  }
+  #favDish:hover{
+    transform : scale(1.1);
+  }
+  #remDish{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #4c344c;
+    padding: 1em;
+    border-radius: 10px;
+    margin: 10px;
+    color:#e8d0bb;
+  }
+  #remDish:hover{
+    transform : scale(1.1);
+  }
+
+
   /* hacer media queries */
   
   @media (max-width: 968px) {

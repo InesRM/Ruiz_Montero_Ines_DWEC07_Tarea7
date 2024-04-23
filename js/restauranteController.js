@@ -105,17 +105,6 @@ class RestaurantController {
         this.onAddAllergens();
         this.onAddMenus();
         this.onAddRestaurant();
-        // this[VIEW].showAdminMenu();
-        // this[VIEW].bindAdminMenu(
-        //   this.handleNewCategoryForm,
-        //   this.handleRemoveCategoryForm,
-        //   this.handleNewProductForm,
-        //   this.handleRemoveProductForm,
-        //   this.handleNewRestaurantForm,
-        //   this.handleNewAsMenuForm,
-        //   this.handleNewDeassignMenuForm,
-        //   this.handleModifyCatForm
-        // );
 
         if (getCookie("accetedCookieMessage") !== "true") {
           this[VIEW].showCookiesMessage();
@@ -144,6 +133,10 @@ class RestaurantController {
       .catch((error) => {
         console.error("Error:", error);
       });
+      const favDishes = JSON.parse(this[VIEW].getDishes());
+      if (favDishes){
+        this[DISHES] = favDishes;
+      }
   };
 
   onOpenSession() {
@@ -163,6 +156,11 @@ class RestaurantController {
       this.handleModifyCatForm,
       this.handleNewBackup
     );
+    this[VIEW].showDishesMenu();
+    this[VIEW].bindDishesMenu(this.handleShowDishes,
+      this.handleShowFavDishes,
+    );
+  
   }
   // Manejador para cerrar la sesión
   handleCloseSession = () => {
@@ -181,7 +179,35 @@ class RestaurantController {
     this[VIEW].bindIdentificationLink(this.handleLoginForm);
     // Borra el menú de administración
     this[VIEW].removeAdminMenu();
+    this[VIEW].removeDishesMenu();
   }
+
+  handleShowDishes = () => {
+    const dishes = this[MODEL].getDishes();
+    this[VIEW].showAllDishes(dishes);
+    this[VIEW].bindShowAllDishes(this.handleFavDishes);
+    this[VIEW].modifyBreadcrumb("Platos / Todos los platos");
+  };
+  handleFavDishes = (dishName) => {
+    const index = this[DISHES].findIndex((name) => name === dishName);
+    if(index === -1) {
+      this[DISHES].push(dishName);
+      localStorage.setItem("dishes", JSON.stringify(this[DISHES]));
+      this[VIEW].showFavDishModal(true, dishName);
+    } else {
+      this[VIEW].showFavDishModal(false, dishName);
+    }
+  };
+
+  handleShowFavDishes = () => {
+    const dishes = [];
+    for (const dishName of this[DISHES]) {
+      const dishCreated = this[MODEL].createDish(dishName);
+      dishes.push(dishCreated);
+    }
+    this[VIEW].showFavDishes(dishes);
+    this[VIEW].modifyBreadcrumb("Platos / Platos favoritos");
+  };
 
   handleLoginForm = () => {
     this[VIEW].showLogin();
@@ -657,6 +683,10 @@ for (const dish of di) {
   return JSON.stringify(data);
 
 }
+
+
+
+
 }
 
 export default RestaurantController;

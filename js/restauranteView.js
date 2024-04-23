@@ -397,7 +397,7 @@ class RestaurantView {
         </div>   
         <br>   
         <div class="cat-list-text category_info">
-        <h1>Puedes encontrarnos en:</h1>
+        <h2>Puedes encontrarnos en:</h2>
         <h3>${restaurants.location}</h3>
         </div>
         <div class="rest-foto">
@@ -533,7 +533,7 @@ class RestaurantView {
     container.id = "new-category";
     container.insertAdjacentHTML(
       "afterbegin",
-      `<h1 class="display-5">Nueva categoría</h1>`
+      `<h2 class="display-5">Nueva categoría</h2>`
     );
     container.insertAdjacentHTML(
       "beforeend",
@@ -751,7 +751,7 @@ class RestaurantView {
     container.id = "remove-category";
     container.insertAdjacentHTML(
       "afterbegin",
-      '<h1 class="display-5 text-center">Eliminar una categoría</h1>'
+      '<h2 class="display-5 text-center">Eliminar una categoría</h2>'
     );
     const row = document.createElement("div");
     row.classList.add("category");
@@ -826,7 +826,7 @@ class RestaurantView {
 
     container.insertAdjacentHTML(
       "afterbegin",
-      '<h1 class="display-5">Nuevo Plato</h1>'
+      '<h2 class="display-5">Nuevo Plato</h2>'
     );
 
     const form = document.createElement("form");
@@ -992,7 +992,7 @@ class RestaurantView {
 
     container.insertAdjacentHTML(
       "afterbegin",
-      '<h1 class="display-5">Eliminar un plato</h1>'
+      '<h2 class="display-5">Eliminar un plato</h2>'
     );
 
     const form = document.createElement("form");
@@ -1004,7 +1004,7 @@ class RestaurantView {
 
     form.insertAdjacentHTML(
       "beforeend",
-      `<div class="col-md-6 mb-3">
+      `<div class="col-md-6 mb-3" id="remDish">
                     <label class="form-label" for="npCategories">Categorías del producto</label>
                     <div class="input-group">
                         <label class="input-group-text" for="rpCategories"><i class="bi bi-card-checklist"></i></label>
@@ -1061,17 +1061,11 @@ class RestaurantView {
       listContainer.insertAdjacentHTML(
         "beforeend",
         `<div class="col-md-4 rProduct">
-                    <figure class="card card-product-grid card-lg"> <a data-serial="${category.name}" href="#single-product" class="img-wrap"><img class="${category.name}-style" src="./Imagenes/${category.name}.jpg"></a>
+                    <figure class="card card-product-grid card-lg" id="remDish"> <a data-serial="${category.name}" href="#single-product" class="img-wrap"><img class="${category.name}-style" src="./Imagenes/${category.name}.jpg"></a>
                         <figcaption class="info-wrap">
-                            <div class="row">
-                                <div class="col-md-8"> <a data-serial="${category.name}" href="#single-product" class="title">${category.name} - ${category.name}</a> </div>
-                                <div class="col-md-4">
-                                    <div class="rating text-right"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div>
-                                </div>
-                            </div>
                         </figcaption>
+                        <div class="name-wrap"> <span class="name h5">${category.name}</span> <br></div>
                         <div class="bottom-wrap"> <a href="#" data-serial="${category.name}" class="btn btn-info float-right"> Eliminar </a>
-                            <div class="price-wrap"> <span class="price h5">${category.name}</span> <br> <small class="text-success">Free shipping</small> </div>
                         </div>
                     </figure>
                 </div>`
@@ -1142,7 +1136,7 @@ class RestaurantView {
 
     container.insertAdjacentHTML(
       "afterbegin",
-      '<h1 class="display-5">Nuevo restaurante</h1>'
+      '<h2 class="display-5">Nuevo restaurante</h2>'
     );
 
     const form = document.createElement("form");
@@ -1251,7 +1245,7 @@ class RestaurantView {
 
     container.insertAdjacentHTML(
       "afterbegin",
-      '<h1 class="display-5">Asignación de platos</h1>'
+      '<h2 class="display-5">Asignación de platos</h2>'
     );
 
     const form = document.createElement("form");
@@ -1360,7 +1354,7 @@ class RestaurantView {
 
     container.insertAdjacentHTML(
       "afterbegin",
-      '<h1 class="display-5">Desasignación de platos</h1>'
+      '<h2 class="display-5">Desasignación de platos</h2>'
     );
 
     const form = document.createElement("form");
@@ -1468,7 +1462,7 @@ class RestaurantView {
 
     container.insertAdjacentHTML(
       "afterbegin",
-      '<h1 class="display-5">Modificar categorías de un plato</h1>'
+      '<h2 class="display-5">Modificar categorías de un plato</h2>'
     );
 
     const form = document.createElement("form");
@@ -1804,6 +1798,165 @@ showBackupResult(done, error) {
         </div>`);
 
     }
+  }
+  removeDishesMenu() {
+    const dishMenu = document.getElementById("favDishes");
+    if (dishMenu) dishMenu.parentElement.remove();
+  }
+
+  showDishesMenu() {
+    const menuOption = document.createElement("li");
+    menuOption.classList.add("nav-item");
+    menuOption.classList.add("dropdown");
+    menuOption.insertAdjacentHTML(
+      "beforeend",
+      '<a class="nav-link dropdown-toggle" href="#" id="favDishes" role="button" data-bs-toggle="dropdown" aria-expanded="false">Favoritos</a>'
+    );
+    const suboptions = document.createElement("ul");
+    suboptions.classList.add("dropdown-menu");
+    suboptions.insertAdjacentHTML(
+      "beforeend",
+      '<li><a id="lshowDishes" class="dropdown-item" href="#show-dishes">Elige Tus Favoritos</a></li>'
+    );
+    suboptions.insertAdjacentHTML(
+      "beforeend",
+      '<li><a id="lfavDishes" class="dropdown-item" href="#fav-dishes">Mis Favoritos</a></li>'
+    );
+    menuOption.append(suboptions);
+    this.menu.append(menuOption);
+  }
+
+  bindDishesMenu(hShowDishes, hFavDishes) {
+    const showDish = document.getElementById("lshowDishes");
+    showDish.addEventListener("click", (event) => {
+      this[EXCECUTE_HANDLER](
+        hShowDishes,
+        [],
+        "#show-dishes",
+        { action: "showDishes" },
+        "#",
+        event
+      );
+    });
+    const favDishesLink = document.getElementById("lfavDishes");
+    favDishesLink.addEventListener("click", (event) => {
+      this[EXCECUTE_HANDLER](
+        hFavDishes,
+        [],
+        "#fav-dishes",
+        { action: "favDishes" },
+        "#",
+        event
+      );
+    });
+  }
+  
+  bindShowAllDishes(handler) {
+    const btns = document.querySelectorAll('[id="b-fav"]');
+    btns.forEach((btn) => {
+      btn.addEventListener("click", (event) => {
+        const {serial} = event.currentTarget.dataset;
+        handler(serial);
+      });
+    });
+  }
+
+  showFavDishModal(done, dishName, error) {
+    console.log(dishName);
+    const messageModalContainer = document.getElementById("messageModal");
+    const messageModal = new bootstrap.Modal("#messageModal");
+
+    const title = document.getElementById("messageModalTitle");
+    title.innerHTML = "Plato Favorito";
+    const body = messageModalContainer.querySelector(".modal-body");
+    body.replaceChildren();
+    if (done) {
+      body.insertAdjacentHTML(
+        "afterbegin",
+        `<div class="p-3">Has añadido el plato <strong>${dishName}</strong> a tu lista de favoritos.</div>`
+      );
+    } else {
+      body.insertAdjacentHTML(
+        "afterbegin",
+        `<div class="error text-danger p-3"><i class="bi bi-exclamation-triangle"></i> El plato <strong>${dishName}</strong> ya está añadido.</div>`
+      );
+    }
+    messageModal.show();
+    messageModalContainer.addEventListener("hidden.bs.modal", {
+      once: true,
+    });
+  }
+  showAllDishes(dishes) {
+    //Cogemos los datos del iterador
+    const allDishes = [...dishes];
+
+    this.platos.replaceChildren();
+    if (this.platos.children.length > 1) this.platos.children[1].remove();
+    const container = document.createElement("div");
+    container.id = "rand-list";
+    container.classList.add("container");
+    container.classList.add("my-3");
+    container.insertAdjacentHTML("beforeend", '<div class="row"> </div>');
+
+    for (const product of allDishes) {
+      this.categorias.replaceChildren();
+      const div = document.createElement("div");
+      div.classList.add("col-md-4");
+      div.insertAdjacentHTML(
+        "beforeend",
+        `<figure class="card card-product-grid card-lg" id="favDish"> <a data-serial="${product.name}" href="#detailsDish" class="img-wrap"><img class="${product.constructor.name}-style" src="${product.image}"></a>
+					<figcaption class="info-wrap">
+						<div class="row">
+							<div class="col-md-12"> <div class="title">${product.name}</div> </div>
+						</div>
+            <div class="cart mt-4 align-items-center">
+										<button id="b-fav" data-serial="${product.name}" class="btn btn-info text-uppercase mr-2 px-4">Añadir a favoritos</button>
+						</div>
+					</figcaption>
+				</figure>`
+      );
+      container.children[0].append(div);
+    }
+    container.insertAdjacentHTML("afterbegin", `<h2>Selecciona Tus Favoritos</h2><br>`);
+    this.platos.append(container);
+  }
+
+
+  showFavDishes(dishes) {
+    const allDishes=dishes;
+    this.platos.replaceChildren();
+    this.categorias.replaceChildren();
+    if(this.platos.children.length>1)
+      this.platos.children[1].remove();
+    const container = document.createElement("div");
+    container.id="fav-dishes";
+    container.classList.add("container");
+    container.classList.add("my-3");
+    container.insertAdjacentHTML(
+      "beforeend",
+      '<div class="row"><h2 class="display-5">Tus Favoritos</h2></div>'
+    );
+
+    for (const dish of allDishes) {
+      const div = document.createElement("div");
+      div.classList.add("col-md-4");
+      div.insertAdjacentHTML(
+        "beforeend",
+        `<figure class="card card-product-grid card-lg" id="favDish"> <a data-serial="${dish.name}" href="#detailsDish" class="img-wrap"><img class="${dish.constructor.name}-style" src="${dish.image}"></a>
+					<figcaption class="info-wrap">
+						<div class="row">
+							<div class="col-md-12"> <a data-serial="${dish.name}" href="#detailsDish" class="title">${dish.name}</a> </div>
+						</div>
+					</figcaption>
+				</figure>`
+      );
+      container.children[0].append(div);
+    }
+    this.platos.append(container);
+  }
+
+  getDishes() {
+    return localStorage.getItem("dishes");
   }
 
 }
