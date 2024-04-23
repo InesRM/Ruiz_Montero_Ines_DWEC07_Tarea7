@@ -581,7 +581,7 @@ class RestaurantController {
         if (response.ok) {
           return response.json();
         }
-        throw new Error("Error en la llamada a Ajax");
+        throw new Error("Error en la llamada");
       }).then(function(data) {
         console.log(data);
         done = true;
@@ -598,38 +598,64 @@ class RestaurantController {
 }
 
 createObjectsJson = () => {
-  let categories = new Map(), dishes = new Map(), allergens = new Map(), menus = new Map(), restaurants = new Map();
-  categories = this[MODEL].getCategories();
-  dishes = this[MODEL].getDishes();
-  allergens = this[MODEL].getAllergens();
-  menus = this[MODEL].getMenus();
-  restaurants = this[MODEL].getRestaurants();
-
- for (const category of categories) {
-    category.image = category.image;
-  }
-  for (const allergen of allergens) {
-    allergen.image = allergen.image;
-  }
-  for (const dish of dishes) {
-    dish.image = dish.image;
-  }
-  for (const menu of menus) {
-    menu.image = menu.image;
-  }
-  for (const restaurant of restaurants) {
-    restaurant.image = restaurant.image;
-  }
-  
-  let combinedObject = {
-    categories: categories,
-    dishes: dishes,
-    allergens: allergens,
-    menus: menus,
-    restaurants: restaurants,
+  let data = {
+    categories: [],
+    allergens: [],
+    menus: [],
+    restaurants: [],
+    dishes: [],
   };
+const cat = this[MODEL].getCategories();
+for (const category of cat) {
+  data.categories.push({
+    name: category.category.name,
+    description: category.category.description,
+    image: category.category.image,
+  });
+}
+const al = this[MODEL].getAllergens();
+for (const allergen of al) {
+  data.allergens.push({
+    name: allergen.allergen.name,
+    description: allergen.allergen.description,
+  });
+}
 
-  return JSON.stringify(combinedObject);
+const me = this[MODEL].getMenus();
+for (const menu of me) {
+  data.menus.push({
+    name: menu.menu.name,
+    description: menu.menu.description,
+  });
+}
+
+const res = this[MODEL].getRestaurants();
+for (const restaurant of res) {
+  data.restaurants.push({
+    name: restaurant.name,
+    location: {
+      latitude: restaurant.location.latitude,
+      longitude: restaurant.location.longitude,
+    },
+    description: restaurant.description,
+  });
+}
+
+const di = this[MODEL].getDishes();
+for (const dish of di) {
+  data.dishes.push({
+    name: dish.name,
+    description: dish.description,
+    ingredients: dish.ingredients,
+    image: dish.image,
+    allergens: dish.allergens,
+    categories: dish.categories,
+    menus: dish.menus,
+  });
+}
+  
+  return JSON.stringify(data);
+
 }
 }
 
