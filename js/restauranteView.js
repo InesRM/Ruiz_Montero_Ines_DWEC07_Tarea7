@@ -1770,6 +1770,8 @@ class RestaurantView {
       <form name="fBackup" id="fBackup">
       <div class="mb-3">
       </div>
+      <i class="fa-solid fa-database fa-2xl"></i>
+      &nbsp;
       <button type="submit" class="btn btn-info btn-lg">Generar backup</button>
       </form>`
 
