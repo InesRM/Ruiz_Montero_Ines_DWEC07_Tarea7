@@ -158,7 +158,10 @@ class RestaurantController {
       this.handleNewProductForm,
       this.handleRemoveProductForm,
       this.handleNewRestaurantForm,
-      this.handleNewAsMenuForm
+      this.handleNewAsMenuForm,
+      this.handleNewDeassignMenuForm,
+      this.handleModifyCatForm,
+      this.handleNewBackup
     );
   }
   // Manejador para cerrar la sesión
@@ -554,6 +557,80 @@ class RestaurantController {
 
     this[VIEW].showModifyCatModal(done, category, dish, error);
   };
+
+  handleNewBackup=()=>{
+    this[VIEW].showBackup();
+    this[VIEW].bindBackup(this.handleBackup);
+    this[VIEW].modifyBreadcrumb("Gestor / Backup");
+  }
+
+  handleBackup=()=>{
+    let done;
+    let ObjsJson;
+    try{
+      ObjsJson = this.createObjectsJson();
+      console.log(ObjsJson);
+      let formData = new FormData();
+      let blob = new Blob([ObjsJson], { type: "application/json" });
+      let this1 = this;
+      formData.append("file", blob);
+      fetch("http://localhost/practica9js/crearfichero.php", {
+        method: "POST",
+        body: formData,
+      }).then(function(response) {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error("Error en la llamada a Ajax");
+      }).then(function(data) {
+        console.log(data);
+        done = true;
+        this1[VIEW].showBackupResult(done, data);
+      }).catch(function(error) {
+        done = false;
+        console.log(error);
+      });
+    }
+    catch(error){
+      done = false;
+      console.log(error);
+    }
+}
+
+createObjectsJson = () => {
+  let categories = new Map(), dishes = new Map(), allergens = new Map(), menus = new Map(), restaurants = new Map();
+  categories = this[MODEL].getCategories();
+  dishes = this[MODEL].getDishes();
+  allergens = this[MODEL].getAllergens();
+  menus = this[MODEL].getMenus();
+  restaurants = this[MODEL].getRestaurants();
+
+ for (const category of categories) {
+    category.image = category.image;
+  }
+  for (const allergen of allergens) {
+    allergen.image = allergen.image;
+  }
+  for (const dish of dishes) {
+    dish.image = dish.image;
+  }
+  for (const menu of menus) {
+    menu.image = menu.image;
+  }
+  for (const restaurant of restaurants) {
+    restaurant.image = restaurant.image;
+  }
+  
+  let combinedObject = {
+    categories: categories,
+    dishes: dishes,
+    allergens: allergens,
+    menus: menus,
+    restaurants: restaurants,
+  };
+
+  return JSON.stringify(combinedObject);
+}
 }
 
 export default RestaurantController;

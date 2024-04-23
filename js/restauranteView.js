@@ -513,6 +513,11 @@ class RestaurantView {
       "beforeend",
       `<li><a id="lModCat" class="dropdown-item" href ="#mod-cat" >Modificar Categoría</a ></li > `
     );
+    suboptions.insertAdjacentHTML(
+      "beforeend",
+      `<li><a id="lnewBackup" class="dropdown-item" href ="#fBackup" >Crear Backup</a ></li > `
+    );
+
     menuOption.append(suboptions);
     this.menu.append(menuOption);
   }
@@ -582,7 +587,8 @@ class RestaurantView {
     hNewRestaurantForm,
     hAsDsMenu,
     hRemoveMenu,
-    hModCat
+    hModCat,
+    hNewBackup
   ) {
     const newCategoryLink = document.getElementById("lnewCategory");
     newCategoryLink.addEventListener("click", (event) => {
@@ -679,6 +685,18 @@ class RestaurantView {
         [],
         "#mod-cat",
         { action: "fModifyCat" },
+        "#",
+        event
+      );
+    });
+
+    const newBackupLink = document.getElementById("lnewBackup");
+    newBackupLink.addEventListener("click", (event) => {
+      this[EXCECUTE_HANDLER](
+        hNewBackup,
+        [],
+        "#new-backup",
+        { action: "newBackup" },
         "#",
         event
       );
@@ -1742,19 +1760,49 @@ class RestaurantView {
       });
   }
 
-  bindLanguageSelection(handler) {
-    const lFlags = document
-      .getElementById("language")
-      .querySelectorAll("ul.dropdown-menu a");
-    for (const link of lFlags) {
-      link.addEventListener("click", (event) => {
-        const { language } = event.currentTarget.dataset;
-        handler(language);
-        localStorage.setItem("language", language);
-        event.preventDefault();
-      });
-    }
-  }
+ showBackup() {
+    this.platos.replaceChildren();
+    this.categorias.replaceChildren();
+   
+    this.platos.insertAdjacentHTML(
+      "afterbegin",
+      `<h2 class="display-5">Generar Backup</h2>
+      <form name="fBackup" id="fBackup">
+      <div class="mb-3">
+      </div>
+      <button type="submit" class="btn btn-info btn-lg">Generar backup</button>
+      </form>`
+
+    );
+    this.platos.insertAdjacentHTML(
+      "beforeend",
+      `<div id="backupResult"></div>`
+    );
+
 }
 
+bindBackup(handler) {
+    const form = document.getElementById("fBackup");
+    form.addEventListener("submit", (event) => {
+        handler();
+        event.preventDefault();
+    });
+}
+
+showBackupResult(done, error) {
+   let result= document.getElementById("backupResult");
+    result.innerHTML="";
+    if (done) {
+        result.insertAdjacentHTML("afterbegin", `<div class="alert alert-success" role="alert">
+        <strong>Backup creado correctamente.</strong>
+        </div>`);
+    } else {
+        result.insertAdjacentHTML("afterbegin", `<div class="alert alert-danger" role="alert">
+        <strong>Error al crear el backup: ${error}</strong>
+        </div>`);
+
+    }
+  }
+
+}
 export default RestaurantView;

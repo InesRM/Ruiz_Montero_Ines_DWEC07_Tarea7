@@ -26,6 +26,8 @@ const historyActions = {
     removeProduct: () => ManagerApp.handleRemoveProductForm(),
     newRestaurant: () => ManagerApp.handleNewRestaurantForm(),
     AsDsMenu: () => ManagerApp.handleAsDsMenuForm(),
+    DeasDsMenu: () => ManagerApp.handleNewDeassignMenuForm(),
+    ModifyCat: () => ManagerApp.hhandleModifyCatForm(),
     login: () => ManagerApp.handleLoginForm()
 };
 

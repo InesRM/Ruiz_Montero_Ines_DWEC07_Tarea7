@@ -225,6 +225,18 @@ body {
     border-radius: 10px;
     margin: 10px;
   }
+  #fBackup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    padding: 0.4em;
+    border-radius: 10px;
+    margin: 5px;
+  }
+  #fBackup:hover {
+    background-color: #7b095d;
+  }
   /* hacer media queries */
   
   @media (max-width: 968px) {
