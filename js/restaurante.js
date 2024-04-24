@@ -1197,8 +1197,8 @@ let RestaurantsManager = (function () {
       if (dish) {
         return dish;
       } else {
-      return new Dish(name, description, ingredients, image);
-    }
+        return new Dish(name, description, ingredients, image);
+      }
     }
   }
 

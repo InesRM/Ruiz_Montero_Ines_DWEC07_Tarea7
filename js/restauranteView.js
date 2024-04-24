@@ -18,7 +18,6 @@ class RestaurantView {
     this.platos = document.querySelector(".platos");
     this.categorias = document.querySelector(".categories");
     this.migas = document.querySelector(".breadcrumb");
- 
   }
 
   [EXCECUTE_HANDLER](
@@ -1754,10 +1753,10 @@ class RestaurantView {
       });
   }
 
- showBackup() {
+  showBackup() {
     this.platos.replaceChildren();
     this.categorias.replaceChildren();
-   
+
     this.platos.insertAdjacentHTML(
       "afterbegin",
       `<h2 class="display-5">Generar Backup</h2>
@@ -1768,35 +1767,38 @@ class RestaurantView {
       &nbsp;
       <button type="submit" class="btn btn-info btn-lg">Generar backup</button>
       </form>`
-
     );
     this.platos.insertAdjacentHTML(
       "beforeend",
       `<div id="backupResult"></div>`
     );
+  }
 
-}
-
-bindBackup(handler) {
+  bindBackup(handler) {
     const form = document.getElementById("fBackup");
     form.addEventListener("submit", (event) => {
-        handler();
-        event.preventDefault();
+      handler();
+      event.preventDefault();
     });
-}
+  }
 
-showBackupResult(done, error) {
-   let result= document.getElementById("backupResult");
-    result.innerHTML="";
+  showBackupResult(done, error) {
+    let result = document.getElementById("backupResult");
+    result.innerHTML = "";
     if (done) {
-        result.insertAdjacentHTML("afterbegin", `<div class="alert alert-success" role="alert">
+      result.insertAdjacentHTML(
+        "afterbegin",
+        `<div class="alert alert-success" role="alert">
         <strong>Backup creado correctamente.</strong>
-        </div>`);
+        </div>`
+      );
     } else {
-        result.insertAdjacentHTML("afterbegin", `<div class="alert alert-danger" role="alert">
+      result.insertAdjacentHTML(
+        "afterbegin",
+        `<div class="alert alert-danger" role="alert">
         <strong>Error al crear el backup: ${error}</strong>
-        </div>`);
-
+        </div>`
+      );
     }
   }
   removeDishesMenu() {
@@ -1850,12 +1852,12 @@ showBackupResult(done, error) {
       );
     });
   }
-  
+
   bindShowAllDishes(handler) {
     const btns = document.querySelectorAll('[id="b-fav"]');
     btns.forEach((btn) => {
       btn.addEventListener("click", (event) => {
-        const {serial} = event.currentTarget.dataset;
+        const { serial } = event.currentTarget.dataset;
         handler(serial);
       });
     });
@@ -1917,19 +1919,20 @@ showBackupResult(done, error) {
       );
       container.children[0].append(div);
     }
-    container.insertAdjacentHTML("afterbegin", `<h2>Selecciona Tus Favoritos</h2><br>`);
+    container.insertAdjacentHTML(
+      "afterbegin",
+      `<h2>Selecciona Tus Favoritos</h2><br>`
+    );
     this.platos.append(container);
   }
 
-
   showFavDishes(dishes) {
-    const allDishes=dishes;
+    const allDishes = dishes;
     this.platos.replaceChildren();
     this.categorias.replaceChildren();
-    if(this.platos.children.length>1)
-      this.platos.children[1].remove();
+    if (this.platos.children.length > 1) this.platos.children[1].remove();
     const container = document.createElement("div");
-    container.id="fav-dishes";
+    container.id = "fav-dishes";
     container.classList.add("container");
     container.classList.add("my-3");
     container.insertAdjacentHTML(
@@ -1958,6 +1961,5 @@ showBackupResult(done, error) {
   getDishes() {
     return localStorage.getItem("dishes");
   }
-
 }
 export default RestaurantView;

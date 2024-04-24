@@ -24,8 +24,6 @@ class RestaurantController {
     this[DISHES] = [];
     this.onLoad();
 
-    // this.onInit();
-    // this[VIEW].bindInit(this.handleInit);
   }
 
   [LOAD_RESTAURANT_OBJECTS](data) {
@@ -39,7 +37,6 @@ class RestaurantController {
       const cat = new Category(category.name, category.description);
       cat.image = category.image;
       this[MODEL].addCategory(cat);
-      
     }
     for (const allergen of allergens) {
       const al = new Allergen(allergen.name, allergen.description);
@@ -82,14 +79,13 @@ class RestaurantController {
       for (const category of categories) {
         const cat = this[MODEL].getCategory(category);
         this[MODEL].assignCategoryToDish(cat.category, dishObject);
-     }
-     //menus
+      }
+      //menus
       const menus = dish.menus;
       for (const menu of menus) {
         const me = this[MODEL].getMenu(menu);
         this[MODEL].assignMenuToDish(me.menu, dishObject);
       }
-     
     }
   }
   onLoad = () => {
@@ -133,10 +129,10 @@ class RestaurantController {
       .catch((error) => {
         console.error("Error:", error);
       });
-      const favDishes = JSON.parse(this[VIEW].getDishes());
-      if (favDishes){
-        this[DISHES] = favDishes;
-      }
+    const favDishes = JSON.parse(this[VIEW].getDishes());
+    if (favDishes) {
+      this[DISHES] = favDishes;
+    }
   };
 
   onOpenSession() {
@@ -157,10 +153,7 @@ class RestaurantController {
       this.handleNewBackup
     );
     this[VIEW].showDishesMenu();
-    this[VIEW].bindDishesMenu(this.handleShowDishes,
-      this.handleShowFavDishes,
-    );
-  
+    this[VIEW].bindDishesMenu(this.handleShowDishes, this.handleShowFavDishes);
   }
   // Manejador para cerrar la sesión
   handleCloseSession = () => {
@@ -171,7 +164,7 @@ class RestaurantController {
   };
 
   onCloseSession() {
-    // Desasigna el usuario
+    // Borra el usuario
     this[USER] = null;
     // Borra la cookie
     this[VIEW].deleteUserCookie();
@@ -186,11 +179,12 @@ class RestaurantController {
     const dishes = this[MODEL].getDishes();
     this[VIEW].showAllDishes(dishes);
     this[VIEW].bindShowAllDishes(this.handleFavDishes);
+    
     this[VIEW].modifyBreadcrumb("Platos / Todos los platos");
   };
   handleFavDishes = (dishName) => {
     const index = this[DISHES].findIndex((name) => name === dishName);
-    if(index === -1) {
+    if (index === -1) {
       this[DISHES].push(dishName);
       localStorage.setItem("dishes", JSON.stringify(this[DISHES]));
       this[VIEW].showFavDishModal(true, dishName);
@@ -225,7 +219,7 @@ class RestaurantController {
       if (remember) {
         this[VIEW].setUserCookie(this[USER]);
       }
-      // SI no existe, mostramos un mensaje de que el usuario es incorrecto
+      // Si no existe, mostramos un mensaje de que el usuario es incorrecto
     } else {
       this[VIEW].showInvalidUserMessage();
     }
@@ -306,7 +300,6 @@ class RestaurantController {
       let dish = this[MODEL].getDish(name);
 
       this[VIEW].showDetailsDishes(dish);
-
     } catch (error) {
       this[VIEW].showDetailsDishes(
         null,
@@ -584,109 +577,106 @@ class RestaurantController {
     this[VIEW].showModifyCatModal(done, category, dish, error);
   };
 
-  handleNewBackup=()=>{
+  handleNewBackup = () => {
     this[VIEW].showBackup();
     this[VIEW].bindBackup(this.handleBackup);
     this[VIEW].modifyBreadcrumb("Gestor / Backup");
-  }
+  };
 
-  handleBackup=()=>{
+  handleBackup = () => {
     let done;
     let ObjsJson;
-    try{
+    try {
       ObjsJson = this.createObjectsJson();
       console.log(ObjsJson);
       let formData = new FormData();
       let blob = new Blob([ObjsJson], { type: "application/json" });
       let this1 = this;
       formData.append("file", blob);
-      fetch("http://localhost/practica9js/crearfichero.php", {
+      fetch("http://localhost/tarea7backup/archivoBack.php", {
         method: "POST",
         body: formData,
-      }).then(function(response) {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error("Error en la llamada");
-      }).then(function(data) {
-        console.log(data);
-        done = true;
-        this1[VIEW].showBackupResult(done, data);
-      }).catch(function(error) {
-        done = false;
-        console.log(error);
-      });
-    }
-    catch(error){
+      })
+        .then(function (response) {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error("Error en la llamada");
+        })
+        .then(function (data) {
+          console.log(data);
+          done = true;
+          this1[VIEW].showBackupResult(done, data);
+        })
+        .catch(function (error) {
+          done = false;
+          console.log(error);
+        });
+    } catch (error) {
       done = false;
       console.log(error);
     }
-}
-
-createObjectsJson = () => {
-  let data = {
-    categories: [],
-    allergens: [],
-    menus: [],
-    restaurants: [],
-    dishes: [],
   };
-const cat = this[MODEL].getCategories();
-for (const category of cat) {
-  data.categories.push({
-    name: category.category.name,
-    description: category.category.description,
-    image: category.category.image,
-  });
-}
-const al = this[MODEL].getAllergens();
-for (const allergen of al) {
-  data.allergens.push({
-    name: allergen.allergen.name,
-    description: allergen.allergen.description,
-  });
-}
 
-const me = this[MODEL].getMenus();
-for (const menu of me) {
-  data.menus.push({
-    name: menu.menu.name,
-    description: menu.menu.description,
-  });
-}
+  createObjectsJson = () => {
+    let data = {
+      categories: [],
+      allergens: [],
+      menus: [],
+      restaurants: [],
+      dishes: [],
+    };
+    const cat = this[MODEL].getCategories();
+    for (const category of cat) {
+      data.categories.push({
+        name: category.category.name,
+        description: category.category.description,
+        image: category.category.image,
+      });
+    }
+    const al = this[MODEL].getAllergens();
+    for (const allergen of al) {
+      data.allergens.push({
+        name: allergen.allergen.name,
+        description: allergen.allergen.description,
+      });
+    }
 
-const res = this[MODEL].getRestaurants();
-for (const restaurant of res) {
-  data.restaurants.push({
-    name: restaurant.name,
-    location: {
-      latitude: restaurant.location.latitude,
-      longitude: restaurant.location.longitude,
-    },
-    description: restaurant.description,
-  });
-}
+    const me = this[MODEL].getMenus();
+    for (const menu of me) {
+      data.menus.push({
+        name: menu.menu.name,
+        description: menu.menu.description,
+      });
+    }
 
-const di = this[MODEL].getDishes();
-for (const dish of di) {
-  data.dishes.push({
-    name: dish.name,
-    description: dish.description,
-    ingredients: dish.ingredients,
-    image: dish.image,
-    allergens: dish.allergens,
-    categories: dish.categories,
-    menus: dish.menus,
-  });
-}
-  
-  return JSON.stringify(data);
+    const res = this[MODEL].getRestaurants();
+    for (const restaurant of res) {
+      data.restaurants.push({
+        name: restaurant.name,
+        location: {
+          latitude: restaurant.location.latitude,
+          longitude: restaurant.location.longitude,
+        },
+        description: restaurant.description,
+      });
+    }
 
-}
+    const di = this[MODEL].getDishes();
+    for (const dish of di) {
+      data.dishes.push({
+        name: dish.name,
+        description: dish.description,
+        ingredients: dish.ingredients,
+        image: dish.image,
+        allergens: dish.allergens,
+        categories: dish.categories,
+        menus: dish.menus,
+      });
+    }
 
-
-
-
+    return JSON.stringify(data);
+  };
 }
 
 export default RestaurantController;
