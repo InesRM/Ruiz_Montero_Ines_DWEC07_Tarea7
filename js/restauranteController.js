@@ -200,6 +200,9 @@ class RestaurantController {
       dishes.push(dishCreated);
     }
     this[VIEW].showFavDishes(dishes);
+    this[VIEW].bindShowAllDishes(this.handleFavDishes);
+    //extraer el nombre para poder ir a la vista de detalles
+    
     this[VIEW].modifyBreadcrumb("Platos / Platos favoritos");
   };
 
