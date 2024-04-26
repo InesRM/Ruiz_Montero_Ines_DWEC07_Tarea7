@@ -6,7 +6,7 @@
           "ingredients": ["Pollo", " Lechuga", " Tomate"],
           "image": "Imagenes/Pollo.jpg",
           "categories": ["Hamburguesas"],
-          "allergens": ["Gluten"],
+          "allergens": ["Frutos Secos", "Gluten"],
           "menus": ["Menu Pollo"]
         },
         {
@@ -24,7 +24,7 @@
           "ingredients": ["Vegetales", " Tomate", " Lechuga"],
           "image":  "Imagenes/Vegetariana.jpg",
           "categories": ["Hamburguesas"],
-          "allergens": ["Gluten"],
+          "allergens": ["Gluten", "Fructosa"],
           "menus": ["Menu Vegetariano"]
         },
         {
@@ -42,7 +42,7 @@
           "ingredients": ["Cacao", "Salsa", "Nata", "Galleta"],
           "image": "Imagenes/Chocolate.jpg",
           "categories": ["Postres"],
-          "allergens": ["Lactosa"],
+          "allergens": ["Lactosa", "Fructosa"],
           "menus": ["Menu Continental"]
         },
         {
@@ -51,7 +51,7 @@
           "ingredients": ["Helado", "Salsa", "Galleta", "Frutas"],
           "image": "Imagenes/Helado.jpg",
           "categories": ["Postres"],
-          "allergens": ["Lactosa"],
+          "allergens": ["Lactosa", "Fructosa"],
           "menus": ["Menu Continental"]
         },
         {
@@ -69,7 +69,7 @@
           "ingredients":["Tiramisu", "Salsa", "Nata", "Galleta"],
           "image": "Imagenes/Tiramisu.jpg",
           "categories": ["Postres"],
-          "allergens": ["Lactosa"],
+          "allergens": ["Lactosa","Frutos Secos"],
           "menus": ["Menu Pollo"]
         },
         {
@@ -78,7 +78,7 @@
           "ingredients": ["Lechuga", "Pollo", "Salsa", "Tomate"],
           "image": "Imagenes/Cesar.jpg",
           "categories": ["Ensaladas"],
-          "allergens": ["Gluten"],
+          "allergens": ["Gluten", "Lactosa"],
           "menus": ["Menu Pollo"]
         },
         {
@@ -87,7 +87,7 @@
           "ingredients": ["Pasta", "Salsa", "Tomate", "Lechuga"],
           "image": "Imagenes/Pasta.jpg",
           "categories": ["Ensaladas"],
-          "allergens": ["Gluten"],
+          "allergens": ["Gluten", "Lactosa"],
           "menus": ["Menu Continental"]
         },
         {
@@ -96,7 +96,7 @@
           "ingredients": ["Vegetales", "Salsa", "Tomate", "Lechuga"],
           "image": "Imagenes/Vegana.jpg",
           "categories": ["Ensaladas"],
-          "allergens": ["Gluten"],
+          "allergens": ["Gluten", "Frutos Secos"],
           "menus": ["Menu Vegetariano"]
         },
         {
