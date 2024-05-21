@@ -4,7 +4,7 @@ Ejercicio Final DWEC
 -Lectura De Cookie
 -Carga De Datos JSON
 -Grabado De Datos, Backup
--Producciones Favoritas
+-Selecciones Favoritas
 -Selección De Producciones Favoritas
 -Selección De Ubicación (PENDIENTE)
 -Geocoder(PENDIENTE)
